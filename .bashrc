@@ -232,43 +232,93 @@ mynet () {
 
 #-----Hash comparison-----
 crc32cmp () {
-	crc32 "$1" > .t-1
-	echo "$2" > .t-2
-	cmp --silent .t-1 .t-2 || echo -e "\033[0;31mDIFFERS\e[0m";
-	cmp --silent .t-1 .t-2 && echo -e "\033[0;32mOK\e[0m";
-	rm -rf .t-1 .t-2
+	if [ $# -eq 0 ] ; then
+		echo "NO ARGUMENTS" ;
+	fi
+	if [ $# -eq 1 ] ; then
+		echo "LACK OF ARGUMENTS" ;
+	fi
+	if [ $# -gt 2  ] ; then
+		echo "TOO MANY ARGUMENTS" ;
+	fi
+	if [ $# -eq 2 ] ;then
+		x=$( crc32 "$1" )
+		if [ ${x,,} == ${2,,} ] ; then
+			echo -e "\033[0;32mOK\e[0m" ;
+		else
+			echo -e "\033[0;31mDIFFERS\e[0m" ;
+		fi
+	fi
+	unset x
 }
 #Compares the crc32 sum of the file with the given checksum.
 #Example: crc32 filename 32d70693
 
 md5cmp () {
-	md5sum "$1" | grep -o "^\w*\b" > .t-1
-	echo "$2" > .t-2
-	cmp --silent .t-1 .t-2 || echo -e "\033[0;31mDIFFERS\e[0m";
-	cmp --silent .t-1 .t-2 && echo -e "\033[0;32mOK\e[0m";
-	rm -rf .t-1 .t-2
+	if [ $# -eq 0 ] ; then
+		echo "NO ARGUMENTS" ;
+	fi
+	if [ $# -eq 1 ] ; then
+		echo "LACK OF ARGUMENTS" ;
+	fi
+	if [ $# -gt 2  ] ; then
+		echo "TOO MANY ARGUMENTS" ;
+	fi
+	if [ $# -eq 2 ] ;then
+		x=$( md5sum "$1" | grep -o "^\w*\b" )
+		if [ ${x,,} == ${2,,} ] ; then
+			echo -e "\033[0;32mOK\e[0m" ;
+		else
+			echo -e "\033[0;31mDIFFERS\e[0m" ;
+		fi
+	fi
+	unset x
 }
 #Compares the md5 sum of the file with the given checksum.
 #Example: md5sum filename 68b329da9893e34099c7d8ad5cb9c940
 
 sha256cmp () {
-	sha256sum "$1" | grep -o "^\w*\b" > .t-1
-	echo "$2" > .t-2
-	cmp --silent .t-1 .t-2 && echo -e "\033[0;32mOK\e[0m" || echo -e "\033[0;31mDIFFERS\e[0m";
-	rm -rf .t-1 .t-2
+	if [ $# -eq 0 ] ; then
+		echo "NO ARGUMENTS" ;
+	fi
+	if [ $# -eq 1 ] ; then
+		echo "LACK OF ARGUMENTS" ;
+	fi
+	if [ $# -gt 2  ] ; then
+		echo "TOO MANY ARGUMENTS" ;
+	fi
+	if [ $# -eq 2 ] ;then
+		x=$( sha256sum "$1" | grep -o "^\w*\b" )
+		if [ ${x,,} == ${2,,} ] ; then
+			echo -e "\033[0;32mOK\e[0m" ;
+		else
+			echo -e "\033[0;31mDIFFERS\e[0m" ;
+		fi
+	fi
+	unset x
 }
 #Compares the sha256 sum of the file with the given checksum.
 #Example: sha256cmp filename 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
 
 sha1cmp () {
-	sha1sum "$1" | grep -o "^\w*\b" > .t-1
-	echo "$2" > .t-2
-	if	cmp --silent .t-1 .t-2 
-	then
-		echo -e "\033[0;32mOK\e[0m";
-	else
-		echo -e "\033[0;31mDIFFERS\e[0m"; 
-	rm -rf .t-1 .t-2
+	if [ $# -eq 0 ] ; then
+		echo "NO ARGUMENTS" ;
 	fi
+	if [ $# -eq 1 ] ; then
+		echo "LACK OF ARGUMENTS" ;
+	fi
+	if [ $# -gt 2  ] ; then
+		echo "TOO MANY ARGUMENTS" ;
+	fi
+	if [ $# -eq 2 ] ;then
+		x=$( sha1sum "$1" | grep -o "^\w*\b" )
+		if [ ${x,,} == ${2,,} ] ; then
+			echo -e "\033[0;32mOK\e[0m" ;
+		else
+			echo -e "\033[0;31mDIFFERS\e[0m" ;
+		fi
+	fi
+	unset x
 }
-
+#Compares the sha1 sum of the file with the given checksum.
+#Example: sha1cmp filename da39a3ee5e6b4b0d3255bfef95601890afd80709
