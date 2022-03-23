@@ -1,3 +1,5 @@
+colorscheme monokai
+
 set number
 set mouse=r
 set laststatus=2
@@ -7,10 +9,12 @@ set colorcolumn=80
 set incsearch
 set hlsearch
 set autoindent
+set tabstop=4
+set noexpandtab
+set shiftwidth=8
 
+"filetype on
 syntax on
-colorscheme monokai
-
 
 "This part is used if powerline-status is installed
 "python from powerline.vim import setup as powerline_setup
